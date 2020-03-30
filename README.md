@@ -30,12 +30,13 @@ $ yarn start
 Stale initProps from server pollutes dynamic routes
 - Go to subroute 001 page
 - Switch between subroute 002 and 001, page content loads correctly after client-side getInitProps
-- refresh the page at one subroute
-- Switch between subroute 002 and 001
+- Refresh the page at one subroute
+- Switch between subroute 002 and 001, page content flashbacks to server-provided stale props before correct prop renders.
+- Notice the "isServer" flag on the page and console, which indicates the prop we're using comes from the server getInitProps or not.
 
 ## Issue 2: 
 Navigating between page anchors trigger unexpected getInitProps
 - Go to "Page with hash"
-- click "#" anchors ahead of paragraphs
-- Unexpected getInitProps called
-- issue 1 above may also appear
+- Click "#" anchors ahead of paragraphs
+- Unexpected getInitProps called, logged in the console
+- Issue 1 above may also appear
