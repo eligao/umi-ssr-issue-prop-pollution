@@ -2,7 +2,7 @@ const server = require('umi-server');
 const http = require('http');
 const { createReadStream } = require('fs');
 const { join, extname } = require('path');
-
+const fetch = require('node-fetch');
 const root = join(__dirname, 'dist');
 const render = server({
   root,
@@ -27,18 +27,26 @@ const createServer = http.createServer(async (req, res) => {
       req,
       res,
     };
-    const { ssrHtml } = await render(ctx);
+    const renderRes = await render(ctx);
+    const { ssrHtml } = renderRes;
     res.write(ssrHtml);
     res.end();
   } else {
-    // static file url
-    const path = join(root, req.url);
-    const stream = createReadStream(path);
-    stream.on('error', error => {
-      res.writeHead(404, 'Not Found');
-      res.end();
-    });
-    stream.pipe(res);
+    if(process.env.NODE_ENV==='development'){
+      const upstreamUrl = new URL(req.url, 'http://localhost:8000');
+      const upstreamRes = await fetch(upstreamUrl);
+      // const upstreamText = await upstreamRes.text();
+      upstreamRes.body.pipe(res);
+    }else {
+      // static file url
+      const path = join(root, req.url);
+      const stream = createReadStream(path);
+      stream.on('error', error => {
+        res.writeHead(404, 'Not Found');
+        res.end();
+      });
+      stream.pipe(res);
+    }
   }
 });
 
