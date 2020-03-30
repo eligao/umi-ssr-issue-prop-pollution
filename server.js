@@ -21,7 +21,7 @@ const createServer = http.createServer(async (req, res) => {
   };
   res.writeHead(200, header);
 
-  if (!ext) {
+  if (req.headers["accept"]==='text/html') {
     // url render
     const ctx = {
       req,
@@ -34,7 +34,10 @@ const createServer = http.createServer(async (req, res) => {
   } else {
     if(process.env.NODE_ENV==='development'){
       const upstreamUrl = new URL(req.url, 'http://localhost:8000');
-      const upstreamRes = await fetch(upstreamUrl);
+      const upstreamRes = await fetch(upstreamUrl, {
+        headers: req.headers,
+        method: req.method
+      });
       // const upstreamText = await upstreamRes.text();
       upstreamRes.body.pipe(res);
     }else {
