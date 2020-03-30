@@ -5,7 +5,7 @@ import { sleep } from '@/utils';
 interface PageHashProps {
   title: string;
   content: string;
-  isServer: boolean;
+  isServer?: boolean;
 }
 
 const PageHash: SSRFC<PageHashProps> = props => {
@@ -15,7 +15,7 @@ const PageHash: SSRFC<PageHashProps> = props => {
   return (
     <div>
       <p>This is page alpha</p>
-      <code>isServer: {props.isServer.toString()}</code>
+      <code>isServer: {props.isServer?.toString()}</code>
       <h1 id="p1">
         <a href="#p1">#</a>Paragraph 1
       </h1>

@@ -6,7 +6,7 @@ import { sleep } from '@/utils';
 interface PageSubrouteProps {
   title: string;
   content: string;
-  isServer: boolean;
+  isServer?: boolean;
 }
 
 const PageSubroute: SSRFC<PageSubrouteProps> = props => {
@@ -16,13 +16,13 @@ const PageSubroute: SSRFC<PageSubrouteProps> = props => {
     <div>
       <h1>{props.title}</h1>
       <p>{props.content}</p>
-      <code>isServer: {props.isServer.toString()}</code>
+      <code>isServer: {props.isServer?.toString()}</code>
       <ul>
         <li>
-          <Link to="001">Page Beta/001</Link>
+          <Link to="001">Page subroute/001</Link>
         </li>
         <li>
-          <Link to="002">Page Beta/002</Link>
+          <Link to="002">Page subroute/002</Link>
         </li>
       </ul>
     </div>
@@ -34,8 +34,8 @@ PageSubroute.getInitialProps = async params => {
   console.log('isServer:', params.isServer);
   await sleep(1000);
   return {
-    title: 'Beta Title',
-    content: `Beta Content ${params.route.params.id}`,
+    title: `Subroute Title ${params.route.params.id}`,
+    content: `Beta Content`,
     isServer: params.isServer,
   };
 };
