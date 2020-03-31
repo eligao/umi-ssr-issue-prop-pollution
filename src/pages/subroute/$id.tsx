@@ -18,11 +18,21 @@ const PageSubroute: SSRFC<PageSubrouteProps> = props => {
       <p>{props.content}</p>
       <code>isServer: {props.isServer?.toString()}</code>
       <ul>
+        <p>Dynamic routes using same Page component</p>
         <li>
           <Link to="001">Page subroute/001</Link>
         </li>
         <li>
           <Link to="002">Page subroute/002</Link>
+        </li>
+      </ul>
+      <ul>
+        <p>In-page anchors</p>
+        <li id="p1">
+          <Link to="#p1">#P1</Link>
+        </li>
+        <li id="p2">
+          <Link to="#p2">#P2</Link>
         </li>
       </ul>
     </div>

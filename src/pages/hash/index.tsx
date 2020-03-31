@@ -14,7 +14,8 @@ const PageHash: SSRFC<PageHashProps> = props => {
 
   return (
     <div>
-      <p>This is page alpha</p>
+      <h1>{props.title}</h1>
+      <p>{props.content}</p>
       <code>isServer: {props.isServer?.toString()}</code>
       <h1 id="p1">
         <a href="#p1">#</a>Paragraph 1
@@ -91,7 +92,7 @@ PageHash.getInitialProps = async params => {
   console.log('PageHash::getInitialProps');
   console.log('isServer:', params.isServer);
   await sleep(1000);
-  return { title: 'Title', content: 'Content', isServer: params.isServer };
+  return { title: 'Page with hash', content: 'This is a page with hash links', isServer: params.isServer };
 };
 
 export default PageHash;
