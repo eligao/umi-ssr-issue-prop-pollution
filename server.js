@@ -21,7 +21,7 @@ const createServer = http.createServer(async (req, res) => {
   };
   res.writeHead(200, header);
 
-  if (req.headers["accept"]==='text/html') {
+  if (req.headers["accept"].includes('text/html')) {
     // url render
     const ctx = {
       req,
