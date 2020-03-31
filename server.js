@@ -20,8 +20,8 @@ const createServer = http.createServer(async (req, res) => {
     'Content-Type': headerMap[ext] || 'text/html',
   };
   res.writeHead(200, header);
-
-  if (req.headers["accept"].includes('text/html')) {
+  const reqHeaderAccept = req.headers["accept"];
+  if (reqHeaderAccept && reqHeaderAccept.includes('text/html')) {
     // url render
     const ctx = {
       req,
